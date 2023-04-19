@@ -1,0 +1,31 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "build-rust": "rustc --target wasm32-unknown-unknown -O --crate-type=cdylib src/add.rs -o add.wasm",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@codemirror/lang-sql": "^6.4.1",
+    "@codemirror/view": ">=6.0.0",
+    "@duckdb/duckdb-wasm": "^1.24.0",
+    "@uiw/codemirror-theme-atomone": "^4.19.16",
+    "@uiw/codemirror-theme-nord": "^4.19.16",
+    "@uiw/codemirror-theme-sublime": "^4.19.16",
+    "@uiw/react-codemirror": "^4.19.16",
+    "apache-arrow": "^11.0.0",
+    "file-loader": "^6.2.0",
+    "next": "^13.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
+    "webpack": "^5.79.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.35",
+    "@types/react-dom": "^18.0.11",
+    "typescript": "^5.0.4"
+  }
+}

@@ -1,0 +1,134 @@
+:root {
+  --yellow: #FDF150;
+  --yellow-transparent: #FDF15025;
+  --darkgray: #272c35;
+}
+
+body {
+  margin: 0;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  border: 0.5px solid #888;
+  font-family: sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 200px;
+}
+
+thead tr {
+  background-color: #1d2026;
+  text-align: left;
+  border-bottom: 0.5px solid #888;
+}
+
+tbody tr {
+  border-bottom: 0.5px solid #888;
+}
+
+th, td {
+  text-align: center;
+  height: 36px;
+  padding-left: 6px;
+  padding-right: 6px;
+  color: white;
+}
+
+.ͼ1.cm-focused {
+  outline: none;
+}
+
+.ͼ15.cm-focused .cm-selectionBackground, .ͼ15 .cm-selectionLayer .cm-selectionBackground, .ͼ15 .cm-content ::selection {
+  background-color: #304E75!important;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.editor-container {
+  position: relative;
+  flex: 1 1 0;
+  height: 100%;
+  border-right: 0.5px solid #888;
+  overflow: auto;
+}
+
+.result-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  flex: 1 1 0;
+  height: 100%;
+  background-color: var(--darkgray);
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 6rem;
+}
+
+nav {
+  height: 100vh;
+  width: 3rem;
+  background-color: #FDF150;
+  padding: 8px;
+}
+
+nav div.tools {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+div.tools > div {
+  cursor: pointer;
+}
+
+.list-container {
+  position: relative;
+  padding: 1rem;
+  border-left: 0.5px solid #888;
+  font-family: monospace;
+  background: var(--yellow);
+  width: 10rem;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.list-container h1 {
+  font-size: 1.1rem;
+  margin-top: -0.25rem;
+}
+
+.list-container h2 {
+  font-size: 0.9rem;
+  margin-bottom: -0.5rem;
+}
+
+.list-container > div.list-item {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 0.75rem;
+}
+
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  cursor: pointer;
+}
+
+.error {
+  color: var(--yellow);
+  padding: 2rem;
+  font-family: monospace;
+  white-space: pre;
+}
