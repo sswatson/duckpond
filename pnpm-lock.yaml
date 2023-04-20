@@ -8,8 +8,6 @@ specifiers:
   '@types/react': ^18.0.35
   '@types/react-dom': ^18.0.11
   '@uiw/codemirror-theme-atomone': ^4.19.16
-  '@uiw/codemirror-theme-nord': ^4.19.16
-  '@uiw/codemirror-theme-sublime': ^4.19.16
   '@uiw/react-codemirror': ^4.19.16
   apache-arrow: ^11.0.0
   file-loader: ^6.2.0
@@ -25,8 +23,6 @@ dependencies:
   '@codemirror/view': 6.9.5
   '@duckdb/duckdb-wasm': 1.24.0
   '@uiw/codemirror-theme-atomone': 4.19.16_@codemirror+view@6.9.5
-  '@uiw/codemirror-theme-nord': 4.19.16_@codemirror+view@6.9.5
-  '@uiw/codemirror-theme-sublime': 4.19.16_@codemirror+view@6.9.5
   '@uiw/react-codemirror': 4.19.16_zcve26qfj3ddqaogyg7eygxodi
   apache-arrow: 11.0.0
   file-loader: 6.2.0_webpack@5.79.0
@@ -368,22 +364,6 @@ packages:
 
   /@uiw/codemirror-theme-atomone/4.19.16_@codemirror+view@6.9.5:
     resolution: {integrity: sha512-do5OwgJ+NZgX06Kjrvw+SdYgs7LYIdpLoNGIdvY99xpZZXWE7grfOjMfxRhEk7dHZ9omK6y/YY47BvgFjRnE4A==}
-    dependencies:
-      '@uiw/codemirror-themes': 4.19.16_@codemirror+view@6.9.5
-    transitivePeerDependencies:
-      - '@codemirror/view'
-    dev: false
-
-  /@uiw/codemirror-theme-nord/4.19.16_@codemirror+view@6.9.5:
-    resolution: {integrity: sha512-8nvVNoKRNdr5xOVmUESJ9grePYk46wc4ElY+jLkfOAsbpYV7YhCFo2fL3SofjK+758HkuIkzsp3hIooKvLyxNg==}
-    dependencies:
-      '@uiw/codemirror-themes': 4.19.16_@codemirror+view@6.9.5
-    transitivePeerDependencies:
-      - '@codemirror/view'
-    dev: false
-
-  /@uiw/codemirror-theme-sublime/4.19.16_@codemirror+view@6.9.5:
-    resolution: {integrity: sha512-fKbEMoYm4T5lcjoBy90saXENgysXatc4mwFenRs4vwn0lJfISb/QOgy4WNfUmrwNRYh+XdH6NfPwu5bujZhmzQ==}
     dependencies:
       '@uiw/codemirror-themes': 4.19.16_@codemirror+view@6.9.5
     transitivePeerDependencies:

@@ -1,9 +1,9 @@
 {
-  "private": true,
+  "name": "duckpond",
+  "author": "Samuel S. Watson",
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "build-rust": "rustc --target wasm32-unknown-unknown -O --crate-type=cdylib src/add.rs -o add.wasm",
     "start": "next start"
   },
   "dependencies": {
@@ -11,8 +11,6 @@
     "@codemirror/view": ">=6.0.0",
     "@duckdb/duckdb-wasm": "^1.24.0",
     "@uiw/codemirror-theme-atomone": "^4.19.16",
-    "@uiw/codemirror-theme-nord": "^4.19.16",
-    "@uiw/codemirror-theme-sublime": "^4.19.16",
     "@uiw/react-codemirror": "^4.19.16",
     "apache-arrow": "^11.0.0",
     "file-loader": "^6.2.0",
