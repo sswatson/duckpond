@@ -6,6 +6,7 @@ import duckdb_wasm from "@duckdb/duckdb-wasm/dist/duckdb-mvp.wasm";
 import duckdb_wasm_next from "@duckdb/duckdb-wasm/dist/duckdb-eh.wasm";
 import mvpWorkerURL from "@duckdb/duckdb-wasm/dist/duckdb-browser-mvp.worker.js";
 import ehWorkerURL from "@duckdb/duckdb-wasm/dist/duckdb-browser-eh.worker.js";
+import { ScaleLoader } from 'react-spinners';
 
 interface DuckDB {
   db: null | duckdb.AsyncDuckDB,
@@ -58,7 +59,18 @@ const DuckDBProvider = dynamic(
       };
     },
   },
-  { ssr: false }
+  { 
+    ssr: false,
+    loading: () => <Loading />,
+  }
 );
+
+function Loading() {
+  return (
+    <div className="loading-container">
+      <ScaleLoader color={"#EEE"} />
+    </div>
+  );
+};
 
 export default DuckDBProvider;

@@ -4,6 +4,7 @@ import DuckDBComponent from '../components/DuckDBComponent';
 import NavBar from '../components/NavBar';
 import DuckDBProvider from '../components/DuckDBProvider';
 
+
 export default function Page() {
   const router = useRouter();
   const { query } = router;
