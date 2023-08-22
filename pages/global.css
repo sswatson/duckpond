@@ -142,4 +142,5 @@ div.tools > div {
   padding: 2rem;
   font-family: monospace;
   white-space: pre;
+  width: 100%;
 }
