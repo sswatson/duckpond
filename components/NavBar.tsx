@@ -150,7 +150,7 @@ const NavBar: React.FC = () => {
           {closeButton}
           <h1> {listHeader} </h1>
           {list.map((fileName) => (
-            <div className="list-item">{fileName}</div>
+            <div key={fileName} className="list-item">{fileName}</div>
           ))}
           {list.length === 0 ? <div>(none)</div> : null}
         </div>

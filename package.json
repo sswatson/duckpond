@@ -12,7 +12,7 @@
     "@duckdb/duckdb-wasm": "^1.28.0",
     "@uiw/codemirror-theme-atomone": "^4.23.0",
     "@uiw/react-codemirror": "^4.23.0",
-    "apache-arrow": "^11.0.0",
+    "apache-arrow": "^13.0.0",
     "file-loader": "^6.2.0",
     "next": "^13.5.6",
     "react": "^18.3.1",

@@ -1,17 +1,13 @@
 import React from "react";
-import { Decimal, Table } from "apache-arrow";
+import { Table } from "apache-arrow";
 
 export default function ArrowTable({ table }: { table: Table }) {
-  // Extract column names
   const columnNames = table.schema.fields.map((field) => field.name);
-
   const columns = new Map();
-
   for (const columnName of columnNames) {
     columns.set(columnName, [...(table.getChild(columnName) || [])]);
   }
 
-  // Extract rows data
   const rows = [];
   for (let i = 0; i < Math.min(1000, table.numRows); i++) {
     const row = [];

@@ -9,8 +9,8 @@ const DuckDBComponent = ({initialQuery}: {initialQuery: string}) => {
   const { conn, addToHistory } = useContext(DuckDBContext);
   const [value, setValue] = useState(initialQuery);
   const [error, setError] = useState("");
-  const [result, setResult] = useState<null | Table>(null);
-  async function runQuery() {
+  const [result, setResult] = useState<null | Table<any>>(null);
+  async function runQuery(value: string) {
     if (!conn) return;
     try {
       const res = await conn.query(value);
@@ -24,7 +24,7 @@ const DuckDBComponent = ({initialQuery}: {initialQuery: string}) => {
     }
   }
   useEffect(() => {
-    runQuery();
+    runQuery(value);
   }, []);
   return (
     <>
