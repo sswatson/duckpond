@@ -1,4 +1,3 @@
-import React from "react";
 import { Table } from "apache-arrow";
 
 export default function ArrowTable({ table }: { table: Table }) {
@@ -45,6 +44,7 @@ function toString(type: any, value: any) {
   if (value === 0 || value === 0n) return "0";
   if (value === false) return "false";
   if (!value) return "";
+  if (!type || !type?.constructor || !type?.constructor?.name) return value.toString();
   if (type.constructor.name === "Decimal") {
     if (type.constructor.name === 'Decimal') {
       const scale = type.scale;
