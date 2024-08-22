@@ -58,37 +58,48 @@ th, td {
 
 .page-container {
   display: flex;
-  flex-direction: row;
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
 }
 
-.editor-container {
-  position: relative;
-  flex: 1 1 0;
-  height: 100%;
-  border-right: 0.5px solid #888;
-  overflow: auto;
-}
-
-.result-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: auto;
-  flex: 1 1 0;
-  height: 100%;
-  background-color: var(--darkgray);
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-bottom: 6rem;
-}
-
 nav {
-  height: 100vh;
+  height: 100%;
   width: 3rem;
   background-color: #FDF150;
   padding: 8px;
+  flex-shrink: 0;
+}
+
+.resizable-container {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+.editor-container,
+.result-container {
+  box-sizing: border-box;
+  height: 100%;
+  overflow: auto;
+  min-width: 0;
+}
+
+.editor-container {
+  border-right: 0.5px solid #888;
+}
+
+.result-container {
+  background-color: var(--darkgray);
+  padding-bottom: 6rem;
+}
+
+.divider {
+  width: 3px;
+  cursor: ew-resize;
+  background-color: #888;
+  flex-shrink: 0;
 }
 
 nav div.tools {
