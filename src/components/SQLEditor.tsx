@@ -78,13 +78,13 @@ export function SQLEditor({
 function duckdbCompletions(conn: AsyncDuckDBConnection | null) {
   return async function (context: CompletionContext) {
     if (!conn) return null;
-    const word = context.matchBefore(/^.*/);
-    if (!word) return null;
-    if (word.from == word.to && !context.explicit) {
+    const line = context.matchBefore(/^.*/);
+    if (!line) return null;
+    if (line.from == line.to && !context.explicit) {
       return null;
     }
     const arrowTable = await conn.query(
-      `SELECT * FROM sql_auto_complete('${word.text}')`
+      `SELECT * FROM sql_auto_complete('${line.text}')`
     );
     const table = arrowTableToJsArray(arrowTable) as {
       suggestion: string;
@@ -93,16 +93,18 @@ function duckdbCompletions(conn: AsyncDuckDBConnection | null) {
     if (!table.length) {
       return null;
     }
-    const shoutCase = word.text.toUpperCase() === word.text;
+    const shoutCase = line.text.toUpperCase() === line.text;
     const first_suggestion_start = table[0].suggestion_start;
+    const wordStart = line.from + first_suggestion_start;
+    const word = line.text.slice(first_suggestion_start);
     return {
-      from: word.from + first_suggestion_start,
+      from: wordStart,
       options: table
         .filter((row) => row.suggestion_start === first_suggestion_start)
         .map((row) => ({
           label: shoutCase
             ? row.suggestion
-            : (row.suggestion as string).toLowerCase(),
+            : matchCase(word, row.suggestion as string)
         })),
     };
   };
@@ -128,4 +130,38 @@ function arrowTableToJsArray(arrowTable: Table) {
   }
 
   return jsArray;
+}
+
+function matchCase(text: string, completion: string) {
+  if (!isLowerCase(completion) && !isUpperCase(completion)) {
+    // if the completion is mixed case, then that means the casing
+    // comes from the user originally and should be preserved:
+    return completion;
+  }
+  let result = "";
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    if (i < completion.length) {
+      const completionChar = completion[i];
+      if (char === char.toUpperCase()) {
+        result += completionChar.toUpperCase();
+      } else {
+        result += completionChar.toLowerCase();
+      }
+    }
+  }
+  if (isLowerCase(text) && isUpperCase(completion)) {
+    result += completion.slice(text.length).toLowerCase();
+  } else {
+    result += completion.slice(text.length);
+  }
+  return result;
+}
+
+function isLowerCase(text: string) {
+  return text === text.toLowerCase();
+}
+
+function isUpperCase(text: string) {
+  return text === text.toUpperCase();
 }
