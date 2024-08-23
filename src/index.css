@@ -88,12 +88,13 @@ nav {
 
 .editor-container {
   border-right: 0.5px solid #888;
+  flex: 0 0 auto;
 }
 
 .result-container {
   background-color: var(--darkgray);
   padding-bottom: 6rem;
-  flex-grow: 1;
+  flex: 1 1 auto;
 }
 
 .divider {
@@ -142,11 +143,24 @@ div.tools > div {
   margin-top: 0.75rem;
 }
 
+.list-item {
+  cursor: pointer;
+}
+
 .close-button {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
   cursor: pointer;
+}
+
+.copy-to-clipboard {
+  margin-top: 1rem;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid #333;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
 }
 
 .error {

@@ -11,7 +11,8 @@ export function useResizablePanes() {
 
     const containerRect = containerRef.current.getBoundingClientRect();
     const relativeX = e.clientX - containerRect.left;
-    const newEditorWidth = Math.max(0, relativeX);
+    const maxWidth = containerWidthRef.current - 3;
+    const newEditorWidth = Math.min(Math.max(0, relativeX), maxWidth);
 
     editorContainerRef.current.style.width = `${newEditorWidth}px`;
  

@@ -1,44 +1,38 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import ArrowTable from "./ArrowTable";
 import { SQLEditor } from "./SQLEditor";
 import { DuckDBContext } from "./DuckDBProvider";
-import { Table } from "apache-arrow";
 import { useResizablePanes } from "../lib/hooks/useResizablePanes";
+import { Table } from "apache-arrow";
 
-const DuckDBComponent = ({ initialQuery }: { initialQuery: string }) => {
-  const { conn, addToHistory } = useContext(DuckDBContext);
-  const [value, setValue] = useState(initialQuery);
-  const [error, setError] = useState("");
-  const [result, setResult] = useState<null | Table>(null);
-  const {
-    containerRef,
-    editorContainerRef,
-    handleMouseDown,
-  } = useResizablePanes();
+export function DuckDBComponent({
+  editorContents,
+  setEditorContents,
+  error,
+  result,
+  runQuery,
+  rowLimit,
+  incrementRowLimit,
+}: {
+  editorContents: string;
+  setEditorContents: (value: string) => void;
+  error: string;
+  result: null | Table;
+  runQuery: (value: string) => void;
+  rowLimit: number;
+  incrementRowLimit: () => void;
+}) {
+  const { conn } = useContext(DuckDBContext);
 
-  async function runQuery(value: string) {
-    if (!conn) return;
-    try {
-      const res = await conn.query(value);
-      setResult(res);
-      setError("");
-      addToHistory(value);
-    } catch (err) {
-      console.error(err);
-      setError(err!.toString());
-      setResult(null);
-    }
-  }
+  const { containerRef, editorContainerRef, handleMouseDown } =
+    useResizablePanes();
 
   useEffect(() => {
-    runQuery(value);
+    runQuery(editorContents);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (
-      containerRef.current &&
-      editorContainerRef.current
-    ) {
+    if (containerRef.current && editorContainerRef.current) {
       const totalWidth = containerRef.current.clientWidth;
       const availableWidth = totalWidth - 3; // 3px for the divider
       const halfWidth = Math.floor(availableWidth / 2);
@@ -51,8 +45,8 @@ const DuckDBComponent = ({ initialQuery }: { initialQuery: string }) => {
     <div className="resizable-container" ref={containerRef}>
       <div className="editor-container" ref={editorContainerRef}>
         <SQLEditor
-          value={value}
-          setValue={setValue}
+          value={editorContents}
+          setValue={setEditorContents}
           onShiftEnter={runQuery}
           conn={conn}
         />
@@ -62,11 +56,12 @@ const DuckDBComponent = ({ initialQuery }: { initialQuery: string }) => {
         {error ? (
           <div className="error">{error}</div>
         ) : result ? (
-          <ArrowTable table={result} />
+          <ArrowTable
+            table={result}
+            rowLimit={rowLimit}
+            incrementRowLimit={incrementRowLimit} />
         ) : null}
       </div>
     </div>
   );
 };
-
-export default DuckDBComponent;

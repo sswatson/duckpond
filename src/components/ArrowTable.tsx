@@ -1,6 +1,14 @@
 import { DataType, Table } from "apache-arrow";
 
-export default function ArrowTable({ table }: { table: Table }) {
+export default function ArrowTable({
+  table,
+  rowLimit,
+  incrementRowLimit
+}: {
+  table: Table;
+  rowLimit: number;
+  incrementRowLimit: () => void;
+}) {
   const columnNames = table.schema.fields.map((field) => field.name);
   const columns = new Map();
   for (const columnName of columnNames) {
@@ -8,12 +16,15 @@ export default function ArrowTable({ table }: { table: Table }) {
   }
 
   const rows = [];
-  for (let i = 0; i < Math.min(1000, table.numRows); i++) {
+  for (let i = 0; i < Math.min(rowLimit, table.numRows); i++) {
     const row = [];
     for (const columnName of columnNames) {
       row.push(columns.get(columnName).at(i));
     }
     rows.push(row);
+  }
+  if (table.numRows > rowLimit) {
+    rows.push(Array.from({ length: columnNames.length }, () => "⋮"));
   }
 
   const types = table.schema.fields.map((field) => field.type);
@@ -30,9 +41,18 @@ export default function ArrowTable({ table }: { table: Table }) {
       <tbody>
         {rows.map((row, rowIndex) => (
           <tr key={rowIndex}>
-            {row.map((cell, cellIndex) => (
-              <td key={cellIndex}>{toString(types[cellIndex], cell)}</td>
-            ))}
+            {row.map((cell, cellIndex) =>
+              cell === "⋮" ? (
+                <td
+                  key={cellIndex}
+                  onClick={incrementRowLimit}
+                >
+                  {cell}
+                </td>
+              ) : (
+                <td key={cellIndex}>{toString(types[cellIndex], cell)}</td>
+              )
+            )}
           </tr>
         ))}
       </tbody>
