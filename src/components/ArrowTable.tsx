@@ -44,6 +44,7 @@ export default function ArrowTable({
             {row.map((cell, cellIndex) =>
               cell === "⋮" ? (
                 <td
+                  className="show-more"
                   key={cellIndex}
                   onClick={incrementRowLimit}
                 >

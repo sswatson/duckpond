@@ -170,3 +170,7 @@ div.tools > div {
   white-space: pre;
   width: 100%;
 }
+
+.show-more {
+  cursor: pointer;
+}
