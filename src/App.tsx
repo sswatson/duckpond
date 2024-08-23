@@ -1,7 +1,7 @@
 import { DuckDBComponent } from "./components/DuckDBComponent";
 import { NavBar } from "./components/NavBar";
 import DuckDBProvider, { DuckDBContext } from "./components/DuckDBProvider";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Table } from "apache-arrow";
 
 export default function App() {
@@ -20,10 +20,17 @@ interface MainPageProps {
 }
 
 function MainPage({ query }: MainPageProps) {
-  
-  const initialQuery = query 
-    ? decodeURIComponent(query)
-    : "SELECT * FROM generate_series(10)";
+
+  let initialQuery = "";
+  if (!initialQuery && query) {
+    initialQuery = decodeURIComponent(query);
+  }
+  if (!initialQuery) {
+    initialQuery = localStorage.getItem("duckpondEditorContents") || "";
+  }
+  if (!initialQuery) {
+    initialQuery = "SELECT * FROM generate_series(10)";
+  }
 
   const { conn, addToHistory } = useContext(DuckDBContext);
   const [editorContents, setEditorContents] = useState(initialQuery);
@@ -35,6 +42,10 @@ function MainPage({ query }: MainPageProps) {
   function incrementRowLimit() {
     setRowLimit(getNextRowLimit(rowLimit));
   }
+
+  useEffect(() => {
+    localStorage.setItem("duckpondEditorContents", editorContents);
+  }, [editorContents])
 
   async function runQuery(value: string) {
     if (!conn) return;
