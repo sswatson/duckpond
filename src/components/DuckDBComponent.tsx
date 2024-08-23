@@ -10,8 +10,11 @@ const DuckDBComponent = ({ initialQuery }: { initialQuery: string }) => {
   const [value, setValue] = useState(initialQuery);
   const [error, setError] = useState("");
   const [result, setResult] = useState<null | Table>(null);
-  const { containerRef, editorContainerRef, resultContainerRef, dividerRef, handleMouseDown } =
-    useResizablePanes();
+  const {
+    containerRef,
+    editorContainerRef,
+    handleMouseDown,
+  } = useResizablePanes();
 
   async function runQuery(value: string) {
     if (!conn) return;
@@ -32,24 +35,30 @@ const DuckDBComponent = ({ initialQuery }: { initialQuery: string }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (containerRef.current && editorContainerRef.current && resultContainerRef.current && dividerRef.current) {
+    if (
+      containerRef.current &&
+      editorContainerRef.current
+    ) {
       const totalWidth = containerRef.current.clientWidth;
-      const dividerWidth = dividerRef.current.offsetWidth;
-      const availableWidth = totalWidth - dividerWidth;
+      const availableWidth = totalWidth - 3; // 3px for the divider
       const halfWidth = Math.floor(availableWidth / 2);
-  
+
       editorContainerRef.current.style.width = `${halfWidth}px`;
-      resultContainerRef.current.style.width = `${availableWidth - halfWidth}px`;
     }
-  }, [containerRef, editorContainerRef, resultContainerRef, dividerRef]);
+  }, [containerRef, editorContainerRef]);
 
   return (
-    <div className="resizable-container" ref={containerRef} >
+    <div className="resizable-container" ref={containerRef}>
       <div className="editor-container" ref={editorContainerRef}>
-        <SQLEditor value={value} setValue={setValue} onShiftEnter={runQuery} />
+        <SQLEditor
+          value={value}
+          setValue={setValue}
+          onShiftEnter={runQuery}
+          conn={conn}
+        />
       </div>
-      <div ref={dividerRef} className="divider" onMouseDown={handleMouseDown} />
-      <div className="result-container" ref={resultContainerRef}>
+      <div className="divider" onMouseDown={handleMouseDown} />
+      <div className="result-container">
         {error ? (
           <div className="error">{error}</div>
         ) : result ? (

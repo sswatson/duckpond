@@ -93,6 +93,7 @@ nav {
 .result-container {
   background-color: var(--darkgray);
   padding-bottom: 6rem;
+  flex-grow: 1;
 }
 
 .divider {
