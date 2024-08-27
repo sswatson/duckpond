@@ -70,6 +70,7 @@ function toString(type: DataType, value: unknown) {
   if (type.constructor.name === "Decimal") {
     if (type.constructor.name === "Decimal") {
       const scale = (type as DataType & { scale: number }).scale;
+      console.log({value});
       if (value instanceof Uint32Array && value.length === 4) {
         // Combine the Uint32Array into a 128-bit integer
         let highBits =
